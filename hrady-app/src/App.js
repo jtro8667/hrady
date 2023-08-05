@@ -24,10 +24,19 @@ function App() {
 
   return (
     <div>
-      <h1>JSON Data Display</h1>
+      <h1>Hrady České republiky</h1>
       {data ? (
-        <pre>{JSON.stringify(data, null, 2)}</pre>
-      ) : (
+	    data.map((castle, index) => {
+		  return (
+            <div key={index}>
+			
+				<a href={"hrad\\" + castle.folder}>{castle.name}</a>
+				<br/>
+            </div>
+			);
+	  }
+        //<pre>{JSON.stringify(data, null, 2)}</pre>
+      )) : (
         <p>Loading data...</p>
       )}
     </div>

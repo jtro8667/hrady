@@ -1,47 +1,28 @@
-import React, { useEffect, useState } from 'react';
+import ReactDOM from "react-dom/client";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Layout from "./pages/Layout";
+import Home from "./pages/Home";
+import CastleDetails from "./pages/CastleDetails";
+import Blogs from "./pages/Blogs";
+import Contact from "./pages/Contact";
+import NoPage from "./pages/NoPage";
 
-function App() {
-  const [data, setData] = useState(null);
-
-  useEffect(() => {
-    // Function to fetch JSON data from the REST endpoint
-    async function fetchData() {
-      try {
-        const response = await fetch('http://localhost:8080/');
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        const jsonData = await response.json();
-        setData(jsonData);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    }
-
-    // Call the fetchData function when the component mounts
-    fetchData();
-  }, []);
-
+export default function App() {
   return (
-    <div>
-      <h1>Hrady České republiky</h1>
-      {data ? (
-	    data.map((castle, index) => {
-		  return (
-            <div key={index}>
-			
-				<a href={"hrad\\" + castle.folder}>{castle.name}</a>
-				<br/>
-            </div>
-			);
-	  }
-        //<pre>{JSON.stringify(data, null, 2)}</pre>
-      )) : (
-        <p>Loading data...</p>
-      )}
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Home />} />
+          <Route path="blogs" element={<Blogs />} />
+          <Route path="contact" element={<Contact />} />
+          <Route path="hrad/*" element={<CastleDetails />} />
+    	  <Route path="*" element={<NoPage />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
 
-export default App;
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<App />);
 

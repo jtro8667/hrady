@@ -7,7 +7,7 @@ function App() {
     // Function to fetch JSON data from the REST endpoint
     async function fetchData() {
       try {
-        const response = await fetch('http://localhost:8080/');
+        const response = await fetch('http://localhost:8080/hrad/Beistein');
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
@@ -26,9 +26,9 @@ function App() {
     <div>
       <h1>Hrad</h1>
       {data ? (
-	    data.map((castle, index) => {
+		  data.pictures.map((picture, index) => {
 		  return (
-            <div key={index}>
+            <div key={index}>{index}
 				<br/>
             </div>
 			);
